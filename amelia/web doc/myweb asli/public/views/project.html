@@ -1,0 +1,78 @@
+<div data-panel="Panel01" class="row">
+	<div class="col-sm-9">
+		<p>Pada range dibawah ini anda bisa memberikan nilai untuk mengetahui faktor prima dari suatu nilai. Kemudian tekan tombol faktor untuk melihat hasinya </p>
+		<form class="form-horizontal">
+
+			<div class="form-group">
+				<label for="selecttion" class="col-sm-3 control-label">
+					Range
+				</label>
+				<div class="col-sm-2">
+					<input type="text" data-field="param01" class="form-control">
+				</div>
+				<label for="selecttion" class="col-sm-1 control-label">
+					to
+				</label>
+				<div class="col-sm-2">
+					<input type="text" data-field="param02" class="form-control">
+				</div>
+			</div>
+
+			<div class="form-group2">
+				<div class="col-sm-2">
+					<button type="button" class="btn btn-default btn-lg" data-action="proses">Factor
+						<!-- <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true">Factor</span> -->
+					</button>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" data-field="hasil" class="form-control">
+				</div>
+			</form>
+		</div>
+	</div>
+
+<script type="text/javascript">
+	console.log('test');
+
+
+	console.log('loaded');
+
+	$('[data-action="proses"]').off('click');
+	$('[data-action="proses"]').on('click', function() {
+		var model = {
+			param01: $('[data-field=param01]').val(),
+			param02: $('[data-field=param02]').val(),
+			
+		}
+		console.log('test', model);
+
+		$.post('proses/project1', model, function(r) {
+			console.log(r);
+			hasil: $('[data-field=hasil]').val(r);
+
+			var html = '';
+			html += '<div style="padding:20px;">';
+			html += '<table class="table">';
+			html += '<thead>';
+			html += '<tr><th style="width:100px;">No</th><th>Value</th><th>Kumulatif</th><th>Average</th></tr>';
+			html += '</thead>';
+			html += '<tbody>';
+			var kum = 0;
+			var ave;
+			r.data.forEach(function(row, idx){
+				kum += row;							//menampilkan jumlah kumulatif per baris
+				ave = (kum)/(idx+1)					//menampilkan nilai rata2 per baris
+				if (idx >= r.data.length-10) {		//untuk menampilkan 10 data terakhir
+					html += '<tr><td>' + (idx + 1) + '</td><td>' + row + '</td><td>' + kum + '</td><td>' + ave + '</td></tr>';	
+				};
+			})
+			html += '</tbody>';
+			html += '</table>';
+			html += '</div>';
+			$('[data-panel="result"]').html(html);
+		})
+	})
+
+
+</script>
+

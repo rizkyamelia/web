@@ -1,0 +1,47 @@
+<div data-panel="Panel01" class="row">
+	<div class="col-sm-9">
+		<p>The prime factors of 1 are 5, 7, 13 and 29. What is the largest prime factor of the number 600851475143?</p>
+		<form class="form-horizontal">
+
+			<div class="form-group">
+				<label for="selecttion" class="col-sm-3 control-label">
+					Range
+				</label>
+				<div class="col-sm-2">
+					<input type="text" data-field="param01" class="form-control">
+				</div>
+				<label for="selecttion" class="col-sm-1 control-label">
+					to
+				</label>
+				<div class="col-sm-2">
+					<input type="text" data-field="param02" class="form-control">
+				</div>
+			</div>
+
+			<div class="form-group2">
+				<div class="col-sm-2">
+					<button type="button" class="btn btn-default btn-lg" data-action="proses">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Sum	
+					</button>
+			</div>
+			<div class="col-sm-2">
+				<input type="text" data-field="hasil" class="form-control">
+			</div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	$('[data-action="proses"]').off('click');
+	$('[data-action="proses"]').on('click', function() {
+		var model = {
+			param01: $('[data-field=param01]').val(),
+			param02: $('[data-field=param02]').val(),
+			hasil: $('[data-field=hasil]').val()
+		}
+		console.log('test', model);
+
+		$.post('')
+	})
+
+
+</script>
